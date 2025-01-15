@@ -3,8 +3,16 @@ def main():
     book_path = "books/frankenstein.txt"
     text = get_book_text(book_path)
     txt_count = len(get_word_count(text))
-    print("Text: ",text)
-    print("Word Count: ",txt_count)
+    char_count = character_count(text)
+    
+    print(f"~~~~~~ Begin report of {book_path} ~~~~~~\n")
+    print(f"{txt_count} words were found in this document\n")
+    
+    for character in char_count:
+        amount = char_count[character]
+        print(f"The '{character}' character was found {amount} times")
+    
+    print("\n~~~~~~ End report ~~~~~")
 
 def get_book_text(path):
     with open("books/frankenstein.txt") as f:
@@ -15,9 +23,17 @@ def get_word_count(text):
     words = text.split()
     return words
 
-#Add a new function to your script that takes the text from the book as a string,
-# and returns the number of times each character appears in the string. 
-# Convert any character to lowercase, we don't want duplicates.
-        
+def character_count(word):
+    char_dict ={}
+    for char in word.lower():
+        if char not in ('abcdefghijklmnopqrstuvwxyz'):
+            continue
+        if char in char_dict:
+            char_dict[char] += 1
+        else:
+            char_dict[char] = 1
+    return(char_dict)
+    
+
 if __name__ == "__main__":
     main()
